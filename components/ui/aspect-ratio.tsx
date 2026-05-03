@@ -1,6 +1,5 @@
-import { cn } from "@/lib/utils"
-
-function AspectRatio({
+import * as React from "react"
+import { cn } from "@/lib/utils"({
   ratio,
   className,
   ...props
