@@ -7,17 +7,24 @@ import Book from "@/database/models/book.model";
 import BookSegment from "@/database/models/book-segment.model";
 import mongoose from "mongoose";
 import {getUserPlan} from "@/lib/subscription.server";
+import {auth} from "@clerk/nextjs/server";
 
 export const getAllBooks = async (search?: string) => {
     try {
+        const { userId } = await auth();
+        if (!userId) {
+            return { success: false, error: 'Unauthorized' };
+        }
+
         await connectToDatabase();
 
-        let query = {};
+        let query: Record<string, unknown> = { clerkId: userId };
 
         if (search) {
             const escapedSearch = escapeRegex(search);
             const regex = new RegExp(escapedSearch, 'i');
             query = {
+                clerkId: userId,
                 $or: [
                     { title: { $regex: regex } },
                     { author: { $regex: regex } },
@@ -126,9 +133,14 @@ export const createBook = async (data: CreateBook) => {
 
 export const getBookBySlug = async (slug: string) => {
     try {
+        const { userId } = await auth();
+        if (!userId) {
+            return { success: false, error: 'Unauthorized' };
+        }
+
         await connectToDatabase();
 
-        const book = await Book.findOne({ slug }).lean();
+        const book = await Book.findOne({ slug, clerkId: userId }).lean();
 
         if (!book) {
             return { success: false, error: 'Book not found' };
