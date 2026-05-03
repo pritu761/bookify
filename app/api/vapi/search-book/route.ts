@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { searchBookSegments } from '@/lib/actions/book.actions';
+import { searchBookSegments } from '@/lib/actions/book.action';
 
 // Helper function to process book search logic
 async function processBookSearch(bookId: unknown, query: unknown) {
