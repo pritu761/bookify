@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, MicOff, Mic } from "lucide-react";
 
-import { getBookBySlug } from "@/lib/actions/book.actions";
+import { getBookBySlug } from "@/lib/actions/book.action";
 import VapiControls from "@/components/VapiControls";
 
 export default async function BookDetailsPage({
