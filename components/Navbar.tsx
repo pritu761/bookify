@@ -24,7 +24,7 @@ const Navbar = () => {
                     <span className="logo-text">Bookified</span>
                 </Link>
 
-                <nav className="w-fit flex gap-7.5 items-center">
+                <nav className="w-fit flex gap-8 items-center">
                     {navItems.map(({ label, href }) => {
                         const isActive = pathName === href || (href !== '/' && pathName.startsWith(href));
 
@@ -35,7 +35,7 @@ const Navbar = () => {
                         )
                     })}
 
-                    <div className="flex gap-7.5 items-center">
+                    <div className="flex gap-8 items-center">
                         <Show when="signed-out">
                             <SignInButton mode="modal" />
                             <SignUpButton mode="modal" />
